@@ -1,9 +1,7 @@
 '''
-Created on April, 2013
 
-@author: Ian Kaplan
 
-To generate the self-signed SSL key and certificate:
+para generar el self-signed SSL key y certificate:
 
 openssl genrsa 1024 > ssl_key
 openssl req -new -x509 -nodes -sha1 -days 365 -key ssl_key > ssl_cert
@@ -16,7 +14,7 @@ import ssl
 import sys
 
 port = 2049
-host = "localhost"
+host = "192.168.0.101"
 
 ssl_keyfile = "ssl_key"
 ssl_certfile = "ssl_cert"
@@ -54,6 +52,7 @@ class ClientThread(TCPBase):
         '''
         Client thread
         '''
+        print("cliente ###########################")
         err = 0
         try:
             self.ssl_sock = ssl.wrap_socket(self.soc,
@@ -63,12 +62,12 @@ class ClientThread(TCPBase):
 
             try:
                 self.ssl_sock.connect((host, port))
-                print("##########################################\n")
+                print("#################bbbbb#########################\n")
                 print("client socket connected\n")
                 message = sys.stdin.readline() 
                 self.ssl_sock.send(message)
                 print("send message")
-                print("##########################################\n")
+                print("#########aaaa#################################\n")
                 self.ssl_sock.sendall("Twas brillig and the slithy toves")
 
             except socket.error as msg:
@@ -83,6 +82,7 @@ class ClientThread(TCPBase):
 
         self.soc.close()
         print("exit client")
+        print("###########aaaaavvvv################")
 
 class ServerThread(TCPBase):
     def __init__(self):
